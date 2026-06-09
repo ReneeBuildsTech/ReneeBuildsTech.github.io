@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Idempotent Log — Renee Brathwaite</title>
+  <meta name="description" content="Build-in-public engineering journal — IAM, PAM, GRC, and identity security from the ground up." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { padding: 5rem 0 3rem; }
+    .page-hero h1 { margin-top: 1rem; max-width: 640px; }
+    .page-hero p { font-size: 1.05rem; color: var(--muted); max-width: 520px; line-height: 1.7; margin-top: 1.5rem; }
+
+    .log-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4rem;
+      padding: 3rem 0 6rem;
+      align-items: start;
+    }
+
+    /* Featured post */
+    .post-featured {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2.5rem;
+      background: rgba(13,31,69,0.5);
+      backdrop-filter: blur(8px);
+      margin-bottom: 1.5rem;
+      border-top: 2px solid var(--cyan);
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .post-featured:hover { border-color: var(--cyan); background: rgba(0,210,255,0.05); }
+
+    .post-featured-badge {
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--cyan);
+      background: var(--cyan-dim); border: 1px solid var(--cyan-border);
+      padding: 0.2rem 0.65rem; border-radius: 100px;
+      display: inline-block; margin-bottom: 1.25rem;
+    }
+
+    .post-featured h2 {
+      font-family: var(--font-display); font-size: 1.7rem;
+      margin-bottom: 0.75rem; line-height: 1.25;
+    }
+
+    .post-featured p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+
+    .post-meta {
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .post-category {
+      padding: 0.2rem 0.6rem; border-radius: 3px;
+      border: 1px solid; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* Post list */
+    .post-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      background: rgba(13,31,69,0.4);
+      margin-bottom: 1rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .post-card:hover { border-color: var(--cyan-border); background: rgba(0,210,255,0.04); transform: translateX(4px); }
+
+    .post-card.coming-soon { opacity: 0.5; cursor: default; }
+    .post-card.coming-soon:hover { transform: none; border-color: var(--border); background: rgba(13,31,69,0.4); }
+
+    .post-card h3 { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 0.5rem; line-height: 1.3; }
+    .post-card p { font-size: 0.855rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.75rem; }
+
+    /* Sidebar */
+    .log-sidebar { position: sticky; top: 5rem; }
+
+    .sidebar-section { margin-bottom: 2.5rem; }
+
+    .sidebar-section h4 {
+      font-family: var(--font-mono); font-size: 0.65rem; color: var(--cyan);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    }
+
+    .category-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .category-item {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.875rem; color: var(--muted); padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0,210,255,0.06);
+      cursor: pointer; transition: color 0.2s;
+    }
+
+    .category-item:hover { color: var(--cyan); }
+    .category-count { font-family: var(--font-mono); font-size: 0.65rem; }
+
+    .newsletter-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      background: rgba(13,31,69,0.5);
+    }
+
+    .newsletter-box p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+
+    @media(max-width:768px){
+      .log-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .log-sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+<div class="bg-layer"></div>
+<div class="grid-layer"></div>
+<nav>
+  <a href="index.html" class="nav-logo">ReneeBuilds</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="log.html" class="active">Log</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="page">
+  <div class="container">
+    <div class="page-hero anim-1">
+      <p class="section-label">Build in Public</p>
+      <h1>Engineering journal &amp; <em>technical writing.</em></h1>
+      <p>Documenting the build process — from zero to enterprise-grade IAM and GRC infrastructure. Real problems, real solutions, real compliance evidence.</p>
+    </div>
+
+    <div class="log-layout">
+      <div>
+        <!-- Featured -->
+        <div class="post-featured anim-2">
+          <span class="post-featured-badge">Featured</span>
+          <h2>How I Built a 6-Project Identity Security Platform in 6 Weeks</h2>
+          <p>Starting from a broken VirtualBox hypervisor conflict on RHEL 10, this is the full story of how the ReneeBuilds Identity & Compliance Platform came together — Keycloak, HashiCorp Vault, AWS SIEM, and AI-assisted GRC tooling mapped to 95+ compliance controls across PCI DSS, NIST 800-53, SOX, ISO 27001, and HIPAA.</p>
+          <div class="post-meta">
+            <span class="post-category tag-cyan" style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:3px;color:var(--cyan);border:1px solid var(--cyan-border);background:var(--cyan-dim);">Platform</span>
+            <span>Coming soon</span>
+            <span>~15 min read</span>
+          </div>
+        </div>
+
+        <!-- Post list -->
+        <div class="anim-3">
+          <div class="post-card">
+            <div class="post-meta" style="margin-bottom:0.75rem;">
+              <span class="post-category tag-cyan" style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:3px;color:var(--cyan);border:1px solid var(--cyan-border);background:var(--cyan-dim);">IAM</span>
+              <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);">Coming soon</span>
+            </div>
+            <h3>Keycloak 26.x on RHEL 10 — What the Docs Don't Tell You</h3>
+            <p>The python-keycloak 7.x breaking changes, why you must separate the auth realm from the target realm, and every workaround that saved this project.</p>
+            <div class="post-meta"><span>~8 min read</span></div>
+          </div>
+
+          <div class="post-card">
+            <div class="post-meta" style="margin-bottom:0.75rem;">
+              <span class="post-category" style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:3px;color:var(--gold);border:1px solid var(--gold-border);background:var(--gold-dim);">PAM</span>
+              <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);">Coming soon</span>
+            </div>
+            <h3>Replacing Root Tokens with AppRole — A Production Migration Pattern</h3>
+            <p>How to migrate a HashiCorp Vault deployment from hardcoded root tokens to scoped AppRole machine identity without breaking existing Ansible automation.</p>
+            <div class="post-meta"><span>~10 min read</span></div>
+          </div>
+
+          <div class="post-card">
+            <div class="post-meta" style="margin-bottom:0.75rem;">
+              <span class="post-category tag-muted" style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:3px;color:var(--muted);border:1px solid rgba(240,244,255,0.15);background:rgba(240,244,255,0.04);">GRC</span>
+              <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);">Coming soon</span>
+            </div>
+            <h3>Mapping 51 Controls Across PCI DSS, SOX, NIST, ISO 27001, and CIS</h3>
+            <p>The methodology behind the compliance documentation in this portfolio — how to map a single technical control to multiple frameworks without double-counting or overstating coverage.</p>
+            <div class="post-meta"><span>~12 min read</span></div>
+          </div>
+
+          <div class="post-card">
+            <div class="post-meta" style="margin-bottom:0.75rem;">
+              <span class="post-category tag-cyan" style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:3px;color:var(--cyan);border:1px solid var(--cyan-border);background:var(--cyan-dim);">IAM</span>
+              <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);">Coming soon</span>
+            </div>
+            <h3>SHA-256 Tamper Evidence for Audit Logs — Why and How</h3>
+            <p>Implementing non-repudiation for rotation logs using Python's hashlib. What it proves, what it doesn't, and how auditors will interpret it under PCI DSS AU-9.</p>
+            <div class="post-meta"><span>~6 min read</span></div>
+          </div>
+
+          <div class="post-card coming-soon">
+            <div class="post-meta" style="margin-bottom:0.75rem;">
+              <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);">More posts coming as projects ship</span>
+            </div>
+            <h3>From Real Estate Broker to Identity Engineer</h3>
+            <p>The non-linear career path, the transferable skills nobody talks about, and why compliance expertise from high-stakes asset management maps directly to GRC engineering.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="log-sidebar anim-4">
+        <div class="sidebar-section">
+          <h4>Categories</h4>
+          <div class="category-list">
+            <div class="category-item">
+              <span>Identity &amp; Access Management</span>
+              <span class="category-count" style="color:var(--cyan);">2</span>
+            </div>
+            <div class="category-item">
+              <span>Privileged Access Management</span>
+              <span class="category-count" style="color:var(--gold);">1</span>
+            </div>
+            <div class="category-item">
+              <span>Governance, Risk &amp; Compliance</span>
+              <span class="category-count">1</span>
+            </div>
+            <div class="category-item">
+              <span>Career &amp; Engineering</span>
+              <span class="category-count">1</span>
+            </div>
+            <div class="category-item">
+              <span>Platform Updates</span>
+              <span class="category-count">1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h4>Connect</h4>
+          <div class="newsletter-box">
+            <p>Following the build? Connect on LinkedIn for updates as each project ships.</p>
+            <a href="https://www.linkedin.com/in/reneebuilds" class="btn btn-primary" target="_blank" rel="noopener" style="font-size:0.8rem;padding:0.65rem 1.25rem;">
+              Follow on LinkedIn
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h4>Platform</h4>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <a href="projects.html" style="font-size:0.875rem;color:var(--muted);text-decoration:none;padding:0.5rem 0;border-bottom:1px solid rgba(0,210,255,0.06);transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">→ View All Projects</a>
+            <a href="https://github.com/ReneeBuildsTech" style="font-size:0.875rem;color:var(--muted);text-decoration:none;padding:0.5rem 0;border-bottom:1px solid rgba(0,210,255,0.06);transition:color 0.2s;" target="_blank" rel="noopener" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">→ GitHub Repositories</a>
+            <a href="about.html" style="font-size:0.875rem;color:var(--muted);text-decoration:none;padding:0.5rem 0;transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">→ About Renee</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Renee Brathwaite · reneebuilds.com</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="https://www.linkedin.com/in/reneebuilds" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);text-decoration:none;" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ReneeBuildsTech" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);text-decoration:none;" target="_blank" rel="noopener">GitHub</a>
+      <a href="contact.html" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);text-decoration:none;">Contact</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
