@@ -222,18 +222,21 @@
     </div>
 
     <!-- P3 -->
-    <div class="proj-full iam planned anim-5">
+    <div class="proj-full iam planned anim-5" style="opacity:0.8;border-top:2px solid var(--gold);">
       <div class="proj-header">
         <div class="proj-header-left">
           <div class="proj-track-label"><span class="tag tag-cyan">P3 — SIEM</span></div>
           <h2>Okta SIEM Pipeline</h2>
           <p class="proj-equivalent">Enterprise equivalent: <span>Splunk ES · Microsoft Sentinel · Okta ThreatInsight</span></p>
         </div>
-        <span class="coming-soon-badge">In Progress</span>
+        <span class="coming-soon-badge">Stage 1 Complete</span>
       </div>
       <p>AWS-native SIEM pipeline polling Okta system logs via API, applying threat detection rules — impossible travel, credential stuffing, privilege escalation — and routing alerts through CloudWatch and SNS. Infrastructure provisioned via Terraform. Feeds the platform's shared S3 audit data lake.</p>
+      <p style="font-size:0.85rem;color:var(--gold);margin-top:0.75rem;font-family:var(--font-mono);letter-spacing:0.04em;">✓ Stage 1 — Ingestion pipeline staged. AWS account provisioned ($200 credits), IAM group architecture established, Okta Integrator tenant active, API token secured in Secrets Manager target path.</p>
       <div class="proj-tags">
+        <span class="tag tag-gold">Stage 1 ✓</span>
         <span class="tag tag-cyan">Okta API</span>
+        <span class="tag tag-muted">AWS Secrets Manager</span>
         <span class="tag tag-muted">AWS CloudWatch</span>
         <span class="tag tag-muted">SNS</span>
         <span class="tag tag-muted">S3 Data Lake</span>
