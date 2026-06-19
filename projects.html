@@ -222,33 +222,42 @@
     </div>
 
     <!-- P3 -->
-    <div class="proj-full iam planned anim-5" style="opacity:0.8;border-top:2px solid var(--gold);">
+    <div class="proj-full iam live anim-5">
       <div class="proj-header">
         <div class="proj-header-left">
           <div class="proj-track-label"><span class="tag tag-cyan">P3 — SIEM</span></div>
-          <h2>Okta SIEM Pipeline</h2>
+          <h2>Okta AWS SIEM Pipeline</h2>
           <p class="proj-equivalent">Enterprise equivalent: <span>Splunk ES · Microsoft Sentinel · Okta ThreatInsight</span></p>
         </div>
-        <span class="coming-soon-badge">Stage 1 Complete</span>
+        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
       </div>
-      <p>AWS-native SIEM pipeline polling Okta system logs via API, applying threat detection rules — impossible travel, credential stuffing, privilege escalation — and routing alerts through CloudWatch and SNS. Infrastructure provisioned via Terraform. Feeds the platform's shared S3 audit data lake.</p>
-      <p style="font-size:0.85rem;color:var(--gold);margin-top:0.75rem;font-family:var(--font-mono);letter-spacing:0.04em;">✓ Stage 1 — Ingestion pipeline staged. AWS account provisioned ($200 credits), IAM group architecture established, Okta Integrator tenant active, API token secured in Secrets Manager target path.</p>
+      <p>Hybrid local-to-cloud SIEM pipeline ingesting Okta system logs via a cron-driven EC2 poller (every 5 min, DynamoDB cursor state) into Kinesis Firehose and an S3 data lake. Lambda triggers on EventBridge failed-login rules, generates AI risk narratives via Amazon Bedrock (Claude Sonnet 4.6), and routes alerts via SNS. Multi-region CloudTrail with ApiCallRateInsight captures AWS control plane activity. QuickSight SOC dashboard connected to Athena dataset. Three GitHub Actions workflows: push-triggered deploy, PR validation (fmt + validate + plan), and scheduled daily drift detection — all running on a self-hosted EC2 runner. Full Terraform infrastructure with remote state in S3.</p>
       <div class="proj-tags">
-        <span class="tag tag-gold">Stage 1 ✓</span>
         <span class="tag tag-cyan">Okta API</span>
-        <span class="tag tag-muted">AWS Secrets Manager</span>
-        <span class="tag tag-muted">AWS CloudWatch</span>
-        <span class="tag tag-muted">SNS</span>
+        <span class="tag tag-cyan">Amazon Bedrock</span>
+        <span class="tag tag-muted">Kinesis Firehose</span>
+        <span class="tag tag-muted">Lambda (Python 3.12)</span>
+        <span class="tag tag-muted">EventBridge</span>
+        <span class="tag tag-muted">CloudTrail</span>
+        <span class="tag tag-muted">QuickSight</span>
         <span class="tag tag-muted">S3 Data Lake</span>
+        <span class="tag tag-muted">Athena · Glue</span>
+        <span class="tag tag-muted">DynamoDB</span>
+        <span class="tag tag-muted">Secrets Manager</span>
+        <span class="tag tag-muted">SNS</span>
         <span class="tag tag-muted">Terraform</span>
-        <span class="tag tag-muted">Athena</span>
-        <span class="tag tag-muted">Python</span>
+        <span class="tag tag-muted">GitHub Actions</span>
+        <span class="tag tag-muted">EC2 · RHEL 10</span>
       </div>
       <div class="proj-controls">
         <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 10.2, 10.6</div></div>
         <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">AU-2, AU-9, SI-12</div></div>
         <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">DE.CM-3, RS.RP-1</div></div>
         <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">Continuous monitoring</div></div>
+      </div>
+      <div class="proj-actions">
+        <a href="https://github.com/ReneeBuildsTech/okta-aws-siem" class="btn btn-primary" target="_blank" rel="noopener">Stage 1 Repo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        <a href="https://github.com/ReneeBuildsTech/project-3-okta-siem-stage2" class="btn btn-ghost" target="_blank" rel="noopener">Stage 2 Repo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
       </div>
     </div>
 
