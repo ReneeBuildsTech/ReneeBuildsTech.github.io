@@ -127,11 +127,23 @@
           </div>
         </div>
         </div>
-        <div class="proj-card planned">
-          <div class="proj-meta"><span class="proj-id">P4 — Audit</span><span class="proj-status status-planned">In Progress</span></div>
-          <h3>IAM Policy Auditor</h3>
-          <p class="proj-desc">AI-assisted IAM policy analysis with Amazon Bedrock, async job engine, Athena cross-project queries, and CRITICAL finding alerts.</p>
-          <div class="proj-tech">Bedrock · Athena · Flask · Python</div>
+        <a href="https://github.com/ReneeBuildsTech/iam-auditor-ai" class="proj-card live" target="_blank" rel="noopener">
+          <div class="proj-meta"><span class="proj-id">P4 — Audit</span><span class="proj-status status-live">Complete</span></div>
+          <h3>IAM Policy Auditor AI</h3>
+          <p class="proj-desc">Audits AWS IAM policies for least-privilege violations. Bedrock AI risk narratives, async Flask job engine, cross-project Athena queries, CRITICAL SNS alerts, QuickSight dashboard.</p>
+          <div class="proj-tech">Bedrock · IAM · SQLite · Athena · QuickSight · Flask</div>
+          <span class="proj-arrow">View on GitHub →</span>
+        </a>
+        <div class="proj-card live" style="grid-column:1/-1;cursor:default;">
+          <div class="proj-meta"><span class="proj-id">GRC1 + GRC2 — Compliance Platform</span><span class="proj-status status-live">Complete</span></div>
+          <h3>GRC Platform</h3>
+          <p class="proj-desc"><strong>Access Certification (GRC1)</strong> — AI-hardened MFA certification pipeline pulling from Keycloak, evaluating compliance via Bedrock, writing immutable SQLite audit evidence, and firing SNS REVOKE alerts. Maps to PCI DSS Req 8.4.2. &nbsp;|&nbsp; <strong>Compliance Monitor (GRC2)</strong> — Five-layer EventBridge → Lambda → Bedrock pipeline generating XML-isolated risk narratives, idempotent SQLite evidence, and Flask reviewer UI. Maps to PCI DSS Req 6.4.3 + Req 10.4.1.1.</p>
+          <div class="proj-tech">Bedrock · Keycloak · Lambda · EventBridge · SQLite · SNS · Athena · Flask</div>
+          <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
+            <a href="https://github.com/ReneeBuildsTech/grc-access-ai" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);text-decoration:none;border:1px solid var(--cyan-border);padding:0.2rem 0.6rem;border-radius:3px;" target="_blank" rel="noopener">GRC1 Repo →</a>
+            <a href="https://github.com/ReneeBuildsTech/grc-compliance-monitor" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);text-decoration:none;border:1px solid var(--cyan-border);padding:0.2rem 0.6rem;border-radius:3px;" target="_blank" rel="noopener">GRC2 Repo →</a>
+            <a href="projects.html" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;">Full Detail →</a>
+          </div>
         </div>
       </div>
       <div style="margin-top:2rem;"><a href="projects.html" class="btn btn-ghost">View All Projects →</a></div>
