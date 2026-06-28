@@ -141,7 +141,7 @@
 
     <div class="page-hero anim-1">
       <p class="section-label">ReneeBuilds Platform</p>
-      <h1>Six projects.<br><em>One connected system.</em></h1>
+      <h1>Seven projects.<br><em>One connected system.</em></h1>
       <p>Each project solves a distinct layer of the identity security problem — from provisioning an identity on day one to auditing its policy posture years later.</p>
     </div>
 
@@ -262,28 +262,23 @@
     </div>
 
     <!-- P4 -->
-    <div class="proj-full iam live anim-6">
+    <div class="proj-full iam planned anim-6">
       <div class="proj-header">
         <div class="proj-header-left">
           <div class="proj-track-label"><span class="tag tag-cyan">P4 — Audit</span></div>
-          <h2>IAM Policy Auditor AI</h2>
+          <h2>IAM Policy Auditor</h2>
           <p class="proj-equivalent">Enterprise equivalent: <span>AWS IAM Access Analyzer · Wiz · Prisma Cloud</span></p>
         </div>
-        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
+        <span class="coming-soon-badge">In Progress</span>
       </div>
-      <p>Audits AWS IAM policies for least-privilege violations — wildcard actions, missing MFA conditions, stale credentials, privilege escalation paths — across 6 real policies including a self-scoring CRITICAL finding on its own auditor policy. AI-generated risk narratives via Amazon Bedrock (Claude Sonnet 4.6) with prompt injection defense via <code>_sanitize_input()</code>. Async job engine decouples scan execution from the Flask request path. CRITICAL findings publish to the shared P3 SNS topic. Cross-project Athena queries correlate P3 SIEM events with P4 IAM findings. QuickSight "IAM Security Posture" dashboard. Cron scheduler fires every 6 hours.</p>
+      <p>Audits AWS IAM policies for least-privilege violations — wildcard actions, missing MFA conditions, stale credentials, privilege escalation paths. AI-generated risk narratives via Amazon Bedrock (Claude Haiku 3.5) with Guardrails. Async job engine decouples scan execution from the browser request path. CRITICAL findings publish to the P3 SNS topic.</p>
       <div class="proj-tags">
         <span class="tag tag-cyan">Amazon Bedrock</span>
-        <span class="tag tag-cyan">Bedrock Guardrails</span>
         <span class="tag tag-muted">AWS IAM</span>
-        <span class="tag tag-muted">Flask (async)</span>
-        <span class="tag tag-muted">SQLite</span>
-        <span class="tag tag-muted">S3 Data Lake</span>
-        <span class="tag tag-muted">SNS</span>
-        <span class="tag tag-muted">Athena · Glue</span>
-        <span class="tag tag-muted">QuickSight</span>
-        <span class="tag tag-muted">Python 3.12</span>
-        <span class="tag tag-muted">RHEL 10</span>
+        <span class="tag tag-muted">Bedrock Guardrails</span>
+        <span class="tag tag-muted">Athena</span>
+        <span class="tag tag-muted">Flask</span>
+        <span class="tag tag-muted">ThreadPoolExecutor</span>
       </div>
       <div class="proj-controls">
         <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 7.2, 8.2</div></div>
@@ -291,76 +286,85 @@
         <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">ID.AM-3, PR.AC-1</div></div>
         <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">Access control evidence</div></div>
       </div>
-      <div class="proj-actions">
-        <a href="https://github.com/ReneeBuildsTech/iam-auditor-ai" class="btn btn-primary" target="_blank" rel="noopener">View Repository <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-      </div>
     </div>
 
     <!-- GRC1 -->
-    <div class="proj-full grc live anim-7">
+    <div class="proj-full grc planned anim-7">
       <div class="proj-header">
         <div class="proj-header-left">
           <div class="proj-track-label"><span class="tag tag-muted">GRC1 — Certification</span></div>
           <h2>Access Certification Platform</h2>
           <p class="proj-equivalent">Enterprise equivalent: <span>SailPoint IdentityNow · Saviynt · Any IGA Platform</span></p>
         </div>
-        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
+        <span class="coming-soon-badge">Planned</span>
       </div>
-      <p>AI-hardened identity certification pipeline pulling user and role data from Keycloak, evaluating MFA compliance via Amazon Bedrock (Claude Sonnet 4.6), writing immutable audit evidence to SQLite, and firing SNS REVOKE alerts for non-compliant identities. Upstream parallel inference via <code>ThreadPoolExecutor</code> at campaign launch eliminates runtime timeout risk. Flask dashboard on port 5001 provides reviewer UI and JSON API. Maps directly to PCI DSS Req 8.4.2 — MFA for all non-console CDE access.</p>
+      <p>Automates the quarterly access certification workflow required by SOX and PCI DSS auditors. Consumes real access records directly from P1's PostgreSQL audit tables. AI-assisted certification recommendations via Amazon Bedrock with Guardrails, running asynchronously at campaign launch rather than on page load.</p>
       <div class="proj-tags">
-        <span class="tag tag-cyan">Amazon Bedrock</span>
-        <span class="tag tag-muted">Keycloak 26.2.4</span>
-        <span class="tag tag-muted">ThreadPoolExecutor</span>
+        <span class="tag tag-muted">Amazon Bedrock</span>
+        <span class="tag tag-muted">PostgreSQL</span>
+        <span class="tag tag-muted">Bedrock Guardrails</span>
         <span class="tag tag-muted">SQLite</span>
-        <span class="tag tag-muted">SNS</span>
-        <span class="tag tag-muted">Flask :5001</span>
-        <span class="tag tag-muted">Python 3.12</span>
-        <span class="tag tag-muted">RHEL 10</span>
-      </div>
-      <div class="proj-controls">
-        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 8.4.2 — MFA</div></div>
-        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">AC-2, IA-2</div></div>
-        <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">PR.AC</div></div>
-        <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">CC6.1 SoD</div></div>
-      </div>
-      <div class="proj-actions">
-        <a href="https://github.com/ReneeBuildsTech/grc-access-ai" class="btn btn-primary" target="_blank" rel="noopener">View Repository <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        <span class="tag tag-muted">ThreadPoolExecutor</span>
+        <span class="tag tag-muted">Flask</span>
       </div>
     </div>
 
     <!-- GRC2 -->
-    <div class="proj-full grc live" style="animation:fadeUp 0.8s ease 1.15s forwards;">
+    <div class="proj-full grc planned" style="opacity:0;animation:fadeUp 0.8s ease 1.15s forwards;">
       <div class="proj-header">
         <div class="proj-header-left">
           <div class="proj-track-label"><span class="tag tag-muted">GRC2 — Monitoring</span></div>
           <h2>Compliance Monitor</h2>
           <p class="proj-equivalent">Enterprise equivalent: <span>ServiceNow GRC · Archer · Any Continuous Compliance Platform</span></p>
         </div>
-        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
+        <span class="coming-soon-badge">Planned</span>
       </div>
-      <p>Five-layer AI compliance pipeline ingesting AWS Config and EventBridge drift notifications via Lambda into the shared S3 data lake, generating risk narratives via Amazon Bedrock (Claude Sonnet 4.6) with <code>&lt;compliance_context&gt;</code> XML isolation defending against indirect prompt injection, and surfacing findings through a Flask reviewer dashboard on port 5002. <code>ThreadPoolExecutor</code> reduces 3-finding batch from ~27s to ~9s. Idempotent <code>INSERT OR REPLACE</code> with 7-hour lookback over a 6-hour cron cadence eliminates duplicate findings. Maps to PCI DSS Req 6.4.3 (script integrity) and Req 10.4.1.1 (automated audit log review). Shares S3, SNS, Glue, and Athena infrastructure with P3 and P4.</p>
+      <p>Validates that controls are actually operating — not just documented. Ingests P2 rotation logs, P4 IAM audit findings, and cross-project Athena queries to produce a continuous compliance score across PCI DSS, NIST 800-53, SOX, and HIPAA. AI-generated risk narratives per finding with XML context isolation defending against prompt injection.</p>
       <div class="proj-tags">
-        <span class="tag tag-cyan">Amazon Bedrock</span>
-        <span class="tag tag-muted">XML Context Isolation</span>
-        <span class="tag tag-muted">Lambda</span>
-        <span class="tag tag-muted">EventBridge</span>
-        <span class="tag tag-muted">AWS Config</span>
-        <span class="tag tag-muted">ThreadPoolExecutor</span>
+        <span class="tag tag-muted">Amazon Bedrock</span>
+        <span class="tag tag-muted">Athena</span>
+        <span class="tag tag-muted">S3</span>
+        <span class="tag tag-muted">Bedrock Guardrails</span>
         <span class="tag tag-muted">SQLite</span>
-        <span class="tag tag-muted">S3 Data Lake</span>
-        <span class="tag tag-muted">SNS</span>
-        <span class="tag tag-muted">Athena · Glue</span>
-        <span class="tag tag-muted">Flask :5002</span>
-        <span class="tag tag-muted">Python 3.12</span>
+        <span class="tag tag-muted">Flask</span>
+      </div>
+    </div>
+
+    <!-- P7 -->
+    <div class="proj-full iam planned" style="opacity:0.7;animation:fadeUp 0.8s ease 1.25s forwards;">
+      <div class="proj-header">
+        <div class="proj-header-left">
+          <div class="proj-track-label"><span class="tag tag-cyan">P7 — IAM · Tri-Cloud</span></div>
+          <h2>Tri-Cloud Identity Governance Engine</h2>
+          <p class="proj-equivalent">Enterprise equivalent: <span>SailPoint · Saviynt · Microsoft Entra ID Governance · CrowdStrike Falcon Identity</span></p>
+        </div>
+        <span class="coming-soon-badge">In Progress · July 2026</span>
+      </div>
+      <p>Programmatic identity governance engine spanning Okta, AWS IAM, Microsoft Entra ID, and GCP — detecting orphaned accounts, inactive credentials, and service account key sprawl concurrently across all four identity planes, then remediating automatically. Entra ID is the canonical source of truth; any account active elsewhere but disabled or absent in Entra triggers a dual-plane disable (Entra PATCH) and deactivate (Okta Management API) in a single reconciliation run. JIT privilege escalation via PIM with real-time webhook telemetry, risk-based Conditional Access enforced after Tor simulation, and a federated AWS data lake joining five telemetry sources in one Athena query. Five Architecture Decision Records document every major design choice. Portfolio site itself migrated to GCP Cloud Storage with Terraform-managed CDN and a keyless GitHub Actions deploy pipeline via Workload Identity Federation.</p>
+      <div class="proj-tags">
+        <span class="tag tag-cyan">Microsoft Graph API</span>
+        <span class="tag tag-cyan">Entra ID P2 · PIM</span>
+        <span class="tag tag-muted">Okta Management API</span>
+        <span class="tag tag-muted">AWS IAM · Credential Report</span>
+        <span class="tag tag-muted">GCP Cloud Asset Inventory</span>
+        <span class="tag tag-muted">Workload Identity Federation</span>
+        <span class="tag tag-muted">Terraform</span>
+        <span class="tag tag-muted">ThreadPoolExecutor</span>
+        <span class="tag tag-muted">Flask · SQLite</span>
+        <span class="tag tag-muted">S3 · Athena · Glue</span>
+        <span class="tag tag-muted">SNS · Secrets Manager</span>
+        <span class="tag tag-muted">GitHub Actions</span>
+        <span class="tag tag-muted">Python 3.11+</span>
+        <span class="tag tag-muted">RHEL 10</span>
+        <span class="tag tag-muted">asciinema</span>
       </div>
       <div class="proj-controls">
-        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 6.4.3, 10.4.1.1</div></div>
-        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">CA-7, SI-4</div></div>
-        <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">DE.CM, ID.RA</div></div>
-        <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">Operating effectiveness</div></div>
-      </div>
-      <div class="proj-actions">
-        <a href="https://github.com/ReneeBuildsTech/grc-compliance-monitor" class="btn btn-primary" target="_blank" rel="noopener">View Repository <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        <div class="control-item"><div class="control-fw">SC-300 Domains</div><div class="control-ids">Identity lifecycle, PIM, CA, Identity Protection</div></div>
+        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">AC-2, AC-2(3), AC-6, IA-2(1), IA-5, SA-10, CM-2</div></div>
+        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 8.3.4, 8.4.2, 10.4.1.1</div></div>
+        <div class="control-item"><div class="control-fw">GCP CIS</div><div class="control-ids">1.4 — SA key sprawl</div></div>
+        <div class="control-item"><div class="control-fw">ISO 27001:2022</div><div class="control-ids">A.5.18, A.8.2, A.8.5</div></div>
+        <div class="control-item"><div class="control-fw">HIPAA</div><div class="control-ids">§164.308(a)(3), §164.308(a)(5)</div></div>
       </div>
     </div>
 
@@ -381,6 +385,7 @@
               <th>P4 Audit</th>
               <th>GRC1</th>
               <th>GRC2</th>
+              <th>P7 Tri-Cloud</th>
             </tr>
           </thead>
           <tbody>
@@ -392,6 +397,7 @@
               <td><span class="check">✓</span> Req 7,8</td>
               <td><span class="check">✓</span> Req 7</td>
               <td><span class="check">✓</span> Req 10</td>
+              <td><span class="check-gold">◐</span> Req 8.3.4, 8.4.2</td>
             </tr>
             <tr>
               <td>NIST SP 800-53 r5</td>
@@ -401,6 +407,7 @@
               <td><span class="check">✓</span> AC-6, AC-2</td>
               <td><span class="check">✓</span> AC-2</td>
               <td><span class="check">✓</span> CA-7</td>
+              <td><span class="check-gold">◐</span> AC-2(3), AC-6, IA-2(1)</td>
             </tr>
             <tr>
               <td>NIST CSF</td>
@@ -410,6 +417,7 @@
               <td><span class="check">✓</span> ID.AM</td>
               <td><span class="check">✓</span> PR.AC</td>
               <td><span class="check">✓</span> DE.CM</td>
+              <td><span class="check-gold">◐</span> PR.AC, DE.CM, RS.RP</td>
             </tr>
             <tr>
               <td>SOX ITGC</td>
@@ -419,6 +427,7 @@
               <td><span class="check">✓</span> Access ctrl</td>
               <td><span class="check">✓</span> CC6.1 SoD</td>
               <td><span class="check">✓</span> Oper. eff.</td>
+              <td><span class="check-gold">◐</span> CC6.1, CC6.2</td>
             </tr>
             <tr>
               <td>ISO 27001:2022</td>
@@ -428,6 +437,7 @@
               <td><span class="check">✓</span> A.9, A.18</td>
               <td><span class="check">✓</span> A.9</td>
               <td><span class="check">✓</span> A.18</td>
+              <td><span class="check-gold">◐</span> A.5.18, A.8.2</td>
             </tr>
             <tr>
               <td>HIPAA Security Rule</td>
@@ -437,6 +447,7 @@
               <td><span class="dash">—</span></td>
               <td><span class="check">✓</span> §164.308(a)(3)</td>
               <td><span class="check">✓</span> §164.308(a)(8)</td>
+              <td><span class="check-gold">◐</span> §164.308(a)(3),(5)</td>
             </tr>
             <tr>
               <td>CIS Benchmarks</td>
@@ -446,6 +457,7 @@
               <td><span class="check-gold">◐</span> AWS planned</td>
               <td><span class="dash">—</span></td>
               <td><span class="dash">—</span></td>
+              <td><span class="check-gold">◐</span> GCP 1.4</td>
             </tr>
           </tbody>
         </table>
