@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Infrastructure — ReneeBuilds.com</title>
+</head>
+<body>
+  <h1>How This Site Is Hosted</h1>
+
+  <h2>Architecture</h2>
+  <p>
+    ReneeBuilds.com is a static site hosted on Google Cloud Platform, as part
+    of the Multicloud Identity Governance &amp; Entitlement Engine project.
+  </p>
+
+  <h2>Stack</h2>
+  <ul>
+    <li><strong>Hosting:</strong> GCP Cloud Storage (static website)</li>
+    <li><strong>DNS:</strong> Cloudflare (CNAME → c.storage.googleapis.com, DNS-only)</li>
+    <li><strong>Security headers:</strong> a Cloudflare response-header
+      transform rule (HSTS, CSP, X-Content-Type-Options) is defined and
+      applied to this zone via Terraform — but Cloudflare only rewrites
+      headers on proxied traffic, and this domain runs DNS-only (required
+      for GCS's TLS validation). The ruleset exists and is live, but isn't
+      currently reachable by requests to this site. Resolving that tradeoff
+      (a proxy-compatible hosting layer in front of GCS, or an alternative
+      header-injection mechanism) is an open item, documented rather than
+      quietly worked around.
+    </li>
+    <li><strong>Deploy pipeline:</strong> GitHub Actions</li>
+    <li><strong>Authentication:</strong> Workload Identity Federation, scoped to this repo's main branch specifically — a token minted anywhere else is rejected before it reaches GCP</li>
+    <li><strong>Credentials stored:</strong> zero long-lived keys anywhere in the pipeline</li>
+    <li><strong>IaC:</strong> Terraform (GCP resources + Cloudflare DNS + security headers), labeled and cost-tracked</li>
+    <li><strong>Terraform state:</strong> AWS S3 remote backend</li>
+  </ul>
+
+  <h2>A Deliberate Exception</h2>
+  <p>
+    The hosting bucket is intentionally publicly readable — that's what makes
+    static website hosting work. Every other guardrail (versioning, least-
+    privilege deploy SA, branch-scoped WIF) is layered around that one
+    necessary exception rather than pretending it isn't there.
+  </p>
+
+  <h2>Source</h2>
+  <p>
+    Infrastructure-as-code:
+    <a href="https://github.com/ReneeBuildsTech/multicloud-identity-governance">
+      github.com/ReneeBuildsTech/multicloud-identity-governance
+    </a>
+    <br>
+    Site content:
+    <a href="https://github.com/ReneeBuildsTech/ReneeBuildsTech.github.io">
+      github.com/ReneeBuildsTech/ReneeBuildsTech.github.io
+    </a>
+  </p>
+</body>
+</html>
