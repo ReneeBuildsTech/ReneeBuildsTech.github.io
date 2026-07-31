@@ -1,0 +1,44 @@
+name: Deploy to GCP Cloud Storage
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  # id-token: write is required for WIF OIDC token generation
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy Site to GCP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GCP via Workload Identity Federation
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
+
+      - name: Upload site assets to Cloud Storage
+        uses: google-github-actions/upload-cloud-storage@v2
+        with:
+          path: .
+          destination: reneebuilds.com
+          glob: '**/*.{html,css,png,jpg,jpeg,svg,ico,xml,txt}'
+          parent: false
+          gzip: true
+          headers: |-
+            Cache-Control: public, max-age=3600
+
+      - name: Verify deployment
+        run: |
+          echo "Deployment complete"
+          echo "Site URL : https://reneebuilds.com"
+          echo "Bucket   : gs://reneebuilds.com"
+          gcloud storage ls gs://reneebuilds.com/ --recursive | head -20
