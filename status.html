@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>System Status — Multicloud Identity Governance</title>
+</head>
+<body>
+  <h1>Reconciliation Engine — Live Status</h1>
+  <p>Read-only summary of the cross-cloud identity reconciliation engine's
+     findings history, queried from the federated Athena data lake.
+     No authentication required — aggregate data only.</p>
+
+  <p id="last-updated">Loading...</p>
+
+  <h2>Findings Summary</h2>
+  <table id="summary-table" border="1" cellpadding="6">
+    <thead><tr><th>Finding Type</th><th>Total</th><th>Auto-Remediated</th><th>Alert-Only</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>Recent Findings</h2>
+  <table id="recent-table" border="1" cellpadding="6">
+    <thead><tr><th>Timestamp (UTC)</th><th>Type</th><th>Identity</th><th>Remediated</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    fetch('/status.json')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('last-updated').textContent =
+          `Last reconciliation run: ${data.last_reconciliation_run || 'unknown'} · Page generated: ${data.generated_at}`;
+        const summaryBody = document.querySelector('#summary-table tbody');
+        data.summary.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${row.finding_type}</td><td>${row.total}</td><td>${row.auto_remediated}</td><td>${row.alert_only}</td>`;
+          summaryBody.appendChild(tr);
+        });
+        const recentBody = document.querySelector('#recent-table tbody');
+        data.recent_findings.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${row.timestamp}</td><td>${row.finding_type}</td><td>${row.identity}</td><td>${row.remediated ? 'Yes' : 'No'}</td>`;
+          recentBody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        document.getElementById('last-updated').textContent = 'Failed to load status data.';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
