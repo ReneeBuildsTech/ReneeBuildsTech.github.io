@@ -34,7 +34,7 @@ jobs:
           parent: false
           gzip: true
           headers: |-
-            Cache-Control: public, max-age=3600
+            cache-control: public, max-age=3600
 
       - name: Verify deployment
         run: |
