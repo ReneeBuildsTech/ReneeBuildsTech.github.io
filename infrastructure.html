@@ -18,14 +18,14 @@
     <li><strong>Hosting:</strong> GCP Cloud Storage (static website)</li>
     <li><strong>DNS:</strong> Cloudflare (CNAME → c.storage.googleapis.com, DNS-only)</li>
     <li><strong>Security headers:</strong> a Cloudflare response-header
-      transform rule (HSTS, CSP, X-Content-Type-Options) is defined and
-      applied to this zone via Terraform — but Cloudflare only rewrites
-      headers on proxied traffic, and this domain runs DNS-only (required
-      for GCS's TLS validation). The ruleset exists and is live, but isn't
-      currently reachable by requests to this site. Resolving that tradeoff
-      (a proxy-compatible hosting layer in front of GCS, or an alternative
-      header-injection mechanism) is an open item, documented rather than
-      quietly worked around.
+      transform rule (HSTS, CSP, X-Content-Type-Options) applies to every
+      request via Cloudflare's proxy — confirmed live on both the apex and
+      www. GCS has no native HTTPS for custom domains, so Cloudflare
+      terminates TLS at the edge in "Full" mode; because "Full" validates
+      only that the origin presents a valid certificate rather than that it
+      matches the hostname, the Cloudflare→GCS backend hop is also
+      encrypted using GCS's own certificate. Genuinely end-to-end
+      encrypted, no unencrypted-hop tradeoff.
     </li>
     <li><strong>Deploy pipeline:</strong> GitHub Actions</li>
     <li><strong>Authentication:</strong> Workload Identity Federation, scoped to this repo's main branch specifically — a token minted anywhere else is rejected before it reaches GCP</li>
