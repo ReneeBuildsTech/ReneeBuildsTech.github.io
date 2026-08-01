@@ -30,7 +30,7 @@ jobs:
         with:
           path: .
           destination: reneebuilds.com
-          glob: '**/*.{html,css,png,jpg,jpeg,svg,ico,xml,txt,json}'
+          glob: '{*.html,*.css,*.js,*.png,*.jpg,*.jpeg,*.svg,*.ico,*.xml,*.txt,status.json,assets/**/*}'
           parent: false
           gzip: true
           headers: |-
