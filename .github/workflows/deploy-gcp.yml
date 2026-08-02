@@ -25,12 +25,23 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
           service_account: ${{ secrets.GCP_SA_EMAIL }}
 
-      - name: Upload site assets to Cloud Storage
+      - name: Upload dynamic content (HTML, status.json) — never cached
         uses: google-github-actions/upload-cloud-storage@v2
         with:
           path: .
           destination: reneebuilds.com
-          glob: '{*.html,*.css,*.js,*.png,*.jpg,*.jpeg,*.svg,*.ico,*.xml,*.txt,status.json,assets/**/*}'
+          glob: '{*.html,status.json}'
+          parent: false
+          gzip: true
+          headers: |-
+            cache-control: no-cache, must-revalidate
+
+      - name: Upload static assets — cacheable
+        uses: google-github-actions/upload-cloud-storage@v2
+        with:
+          path: .
+          destination: reneebuilds.com
+          glob: '{*.css,*.js,*.png,*.jpg,*.jpeg,*.svg,*.ico,*.xml,*.txt,assets/**/*}'
           parent: false
           gzip: true
           headers: |-
