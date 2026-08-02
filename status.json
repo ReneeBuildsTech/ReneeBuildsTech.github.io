@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02T16:47:16.248442+00:00",
+  "generated_at": "2026-08-02T22:49:45.558940+00:00",
   "last_reconciliation_run": "2026-07-30T22:26:35.257373+00:00",
   "summary": [
     {
@@ -24,7 +24,7 @@
   "recent_findings": [
     {
       "timestamp": "2026-07-30T22:26:35.257373+00:00",
-      "finding_type": "ORPHANED_ACCOUNT",
+      "finding_type": "MISSING_MFA",
       "identity": "orphan-drift-user",
       "remediated": false
     },
@@ -36,7 +36,7 @@
     },
     {
       "timestamp": "2026-07-30T22:26:35.257373+00:00",
-      "finding_type": "MISSING_MFA",
+      "finding_type": "ORPHANED_ACCOUNT",
       "identity": "orphan-drift-user",
       "remediated": false
     },
@@ -66,6 +66,12 @@
     },
     {
       "timestamp": "2026-07-30T13:42:52.431606+00:00",
+      "finding_type": "MISSING_MFA",
+      "identity": "orphan-drift-user",
+      "remediated": false
+    },
+    {
+      "timestamp": "2026-07-30T13:42:52.431606+00:00",
       "finding_type": "ORPHANED_ACCOUNT",
       "identity": "orphan-svc",
       "remediated": false
@@ -73,12 +79,6 @@
     {
       "timestamp": "2026-07-30T13:42:52.431606+00:00",
       "finding_type": "ORPHANED_ACCOUNT",
-      "identity": "orphan-drift-user",
-      "remediated": false
-    },
-    {
-      "timestamp": "2026-07-30T13:42:52.431606+00:00",
-      "finding_type": "MISSING_MFA",
       "identity": "orphan-drift-user",
       "remediated": false
     }
