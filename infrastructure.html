@@ -34,6 +34,35 @@
     <li><strong>Terraform state:</strong> AWS S3 remote backend</li>
   </ul>
 
+  <h2>Two Honest CSP Interactions</h2>
+  <p>
+    Running a strict Content Security Policy alongside Cloudflare's own
+    features surfaces two real, expected interactions worth naming rather
+    than hiding:
+  </p>
+  <ul>
+    <li><strong>Web Analytics beacon blocked by tracking protection:</strong>
+      Cloudflare auto-injects a Web Analytics script on every page. Browsers
+      with tracking protection enabled (Firefox's Enhanced Tracking
+      Protection, most ad-blockers, several privacy-focused browsers by
+      default) correctly recognize <code>static.cloudflareinsights.com</code>
+      as an analytics domain and block it — a zero-byte response, not a
+      broken script. This is documented, expected behavior for every site
+      running Cloudflare Web Analytics, not a misconfiguration here.
+    </li>
+    <li><strong>Bot-management script blocked by CSP:</strong> Cloudflare
+      also injects a small inline script (tied to this zone's Security
+      Level setting) that fingerprints requests for bot detection. Its
+      content embeds a fresh, per-request token on every load, so it can
+      never be allowlisted with a static CSP hash — the Transform Rule that
+      sets these headers doesn't have per-request nonce generation available
+      (that would need a Cloudflare Worker). CSP correctly blocks it every
+      time. Site functionality for real visitors is unaffected either
+      way — this only means that specific bot-fingerprinting probe never
+      runs on requests governed by this policy.
+    </li>
+  </ul>
+
   <h2>A Deliberate Exception</h2>
   <p>
     The hosting bucket is intentionally publicly readable — that's what makes
