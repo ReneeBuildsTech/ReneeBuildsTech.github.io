@@ -1,87 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Infrastructure — ReneeBuilds.com</title>
+  <meta name="description" content="How ReneeBuilds.com is hosted — GCP Cloud Storage, Cloudflare, Terraform, and WIF-federated GitHub Actions with zero stored credentials." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .infra-hero { padding: 5rem 0 3rem; }
+    .infra-hero h1 { max-width: 680px; margin-bottom: 1.25rem; }
+    .infra-hero .lead { font-size: 1.05rem; color: var(--muted); max-width: 560px; line-height: 1.75; }
+    .infra-section { padding: 3rem 0; border-top: 1px solid var(--border); }
+    .infra-section h2 { font-size: 1.4rem; margin-bottom: 1.5rem; }
+    .stack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.25rem; }
+    .stack-item { background: rgba(13,31,69,0.55); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; }
+    .stack-item-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--cyan); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .stack-item-value { font-size: 0.9rem; color: var(--white); line-height: 1.6; }
+    .stack-item-value code { font-family: var(--font-mono); font-size: 0.8rem; color: var(--cyan); background: var(--cyan-dim); padding: 0.1rem 0.35rem; border-radius: 3px; }
+    .honest-callout { background: rgba(245,166,35,0.06); border: 1px solid var(--gold-border); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 1rem; }
+    .honest-callout p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .honest-callout strong { color: var(--gold); }
+    .csp-item { margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+    .csp-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .csp-item-title { font-family: var(--font-mono); font-size: 0.72rem; color: var(--white); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .csp-item p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+    .csp-item code { font-family: var(--font-mono); font-size: 0.78rem; color: var(--cyan); }
+    .source-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem; }
+    .source-link { font-family: var(--font-mono); font-size: 0.68rem; color: var(--cyan); text-decoration: none; border: 1px solid var(--cyan-border); padding: 0.35rem 0.9rem; border-radius: 3px; letter-spacing: 0.08em; transition: background 0.2s, color 0.2s; }
+    .source-link:hover { background: var(--cyan); color: var(--navy); }
+    @media (max-width: 768px) { .stack-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
-  <h1>How This Site Is Hosted</h1>
-
-  <h2>Architecture</h2>
-  <p>
-    ReneeBuilds.com is a static site hosted on Google Cloud Platform, as part
-    of the Multicloud Identity Governance &amp; Entitlement Engine project.
-  </p>
-
-  <h2>Stack</h2>
-  <ul>
-    <li><strong>Hosting:</strong> GCP Cloud Storage (static website)</li>
-    <li><strong>DNS:</strong> Cloudflare (CNAME → c.storage.googleapis.com, DNS-only)</li>
-    <li><strong>Security headers:</strong> a Cloudflare response-header
-      transform rule (HSTS, CSP, X-Content-Type-Options) applies to every
-      request via Cloudflare's proxy — confirmed live on both the apex and
-      www. GCS has no native HTTPS for custom domains, so Cloudflare
-      terminates TLS at the edge in "Full" mode; because "Full" validates
-      only that the origin presents a valid certificate rather than that it
-      matches the hostname, the Cloudflare→GCS backend hop is also
-      encrypted using GCS's own certificate. Genuinely end-to-end
-      encrypted, no unencrypted-hop tradeoff.
-    </li>
-    <li><strong>Deploy pipeline:</strong> GitHub Actions</li>
-    <li><strong>Authentication:</strong> Workload Identity Federation, scoped to this repo's main branch specifically — a token minted anywhere else is rejected before it reaches GCP</li>
-    <li><strong>Credentials stored:</strong> zero long-lived keys anywhere in the pipeline</li>
-    <li><strong>IaC:</strong> Terraform (GCP resources + Cloudflare DNS + security headers), labeled and cost-tracked</li>
-    <li><strong>Terraform state:</strong> AWS S3 remote backend</li>
+<div class="bg-layer"></div>
+<div class="grid-layer"></div>
+<nav>
+  <a href="index.html" class="nav-logo">ReneeBuilds</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="log.html">Log</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
   </ul>
+</nav>
+<div class="page">
+  <div class="container">
 
-  <h2>Two Honest CSP Interactions</h2>
-  <p>
-    Running a strict Content Security Policy alongside Cloudflare's own
-    features surfaces two real, expected interactions worth naming rather
-    than hiding:
-  </p>
-  <ul>
-    <li><strong>Web Analytics beacon blocked by tracking protection:</strong>
-      Cloudflare auto-injects a Web Analytics script on every page. Browsers
-      with tracking protection enabled (Firefox's Enhanced Tracking
-      Protection, most ad-blockers, several privacy-focused browsers by
-      default) correctly recognize <code>static.cloudflareinsights.com</code>
-      as an analytics domain and block it — a zero-byte response, not a
-      broken script. This is documented, expected behavior for every site
-      running Cloudflare Web Analytics, not a misconfiguration here.
-    </li>
-    <li><strong>Bot-management script blocked by CSP:</strong> Cloudflare
-      also injects a small inline script (tied to this zone's Security
-      Level setting) that fingerprints requests for bot detection. Its
-      content embeds a fresh, per-request token on every load, so it can
-      never be allowlisted with a static CSP hash — the Transform Rule that
-      sets these headers doesn't have per-request nonce generation available
-      (that would need a Cloudflare Worker). CSP correctly blocks it every
-      time. Site functionality for real visitors is unaffected either
-      way — this only means that specific bot-fingerprinting probe never
-      runs on requests governed by this policy.
-    </li>
-  </ul>
+    <div class="infra-hero anim-1">
+      <p class="section-label">Site Infrastructure</p>
+      <h1>How this site<br><em>is hosted.</em></h1>
+      <p class="lead">ReneeBuilds.com is a static site hosted on Google Cloud Platform — a direct byproduct of the Multicloud Identity Governance &amp; Entitlement Engine project. The hosting pipeline demonstrates the same security principles the portfolio documents.</p>
+    </div>
 
-  <h2>A Deliberate Exception</h2>
-  <p>
-    The hosting bucket is intentionally publicly readable — that's what makes
-    static website hosting work. Every other guardrail (versioning, least-
-    privilege deploy SA, branch-scoped WIF) is layered around that one
-    necessary exception rather than pretending it isn't there.
-  </p>
+    <div class="infra-section anim-2">
+      <h2>Stack</h2>
+      <div class="stack-grid">
+        <div class="stack-item">
+          <div class="stack-item-label">Hosting</div>
+          <div class="stack-item-value">GCP Cloud Storage — static website bucket, publicly readable by design</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-item-label">DNS &amp; TLS</div>
+          <div class="stack-item-value">Cloudflare — CNAME to <code>c.storage.googleapis.com</code>, DNS-only. TLS terminated at Cloudflare edge in Full mode; Cloudflare→GCS backend hop encrypted via GCS's own certificate. Genuinely end-to-end — no unencrypted hop.</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-item-label">Security Headers</div>
+          <div class="stack-item-value">Cloudflare response-header transform rule applying HSTS, CSP, and X-Content-Type-Options to every request — confirmed live on both apex and www.</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-item-label">Deploy Pipeline</div>
+          <div class="stack-item-value">GitHub Actions — push to main triggers deploy. No secrets stored anywhere in the pipeline.</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-item-label">Authentication</div>
+          <div class="stack-item-value">Workload Identity Federation, scoped to this repo's <code>main</code> branch specifically. A token minted anywhere else is rejected before it reaches GCP.</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-item-label">Infrastructure as Code</div>
+          <div class="stack-item-value">Terraform — GCP resources, Cloudflare DNS, and security header rules. Labeled and cost-tracked. State stored in AWS S3 remote backend.</div>
+        </div>
+      </div>
+    </div>
 
-  <h2>Source</h2>
-  <p>
-    Infrastructure-as-code:
-    <a href="https://github.com/ReneeBuildsTech/multicloud-identity-governance">
-      github.com/ReneeBuildsTech/multicloud-identity-governance
-    </a>
-    <br>
-    Site content:
-    <a href="https://github.com/ReneeBuildsTech/ReneeBuildsTech.github.io">
-      github.com/ReneeBuildsTech/ReneeBuildsTech.github.io
-    </a>
-  </p>
+    <div class="infra-section anim-3">
+      <h2>Two honest CSP interactions</h2>
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;">Running a strict Content Security Policy alongside Cloudflare's own features surfaces two real, expected interactions worth naming rather than hiding.</p>
+      <div class="csp-item">
+        <div class="csp-item-title">Web Analytics beacon blocked by tracking protection</div>
+        <p>Cloudflare auto-injects a Web Analytics script on every page. Browsers with tracking protection enabled correctly recognize <code>static.cloudflareinsights.com</code> as an analytics domain and block it — a zero-byte response, not a broken script. This is documented, expected behavior for every site running Cloudflare Web Analytics, not a misconfiguration here.</p>
+      </div>
+      <div class="csp-item">
+        <div class="csp-item-title">Bot-management script blocked by CSP</div>
+        <p>Cloudflare also injects a small inline script for bot detection. Its content embeds a fresh, per-request token on every load, so it can never be allowlisted with a static CSP hash — the Transform Rule that sets these headers doesn't have per-request nonce generation available without a Cloudflare Worker. CSP correctly blocks it every time. Site functionality for real visitors is unaffected — this only means that specific bot-fingerprinting probe never runs on requests governed by this policy.</p>
+      </div>
+    </div>
+
+    <div class="infra-section anim-4">
+      <h2>A deliberate exception</h2>
+      <div class="honest-callout">
+        <p>The hosting bucket is <strong>intentionally publicly readable</strong> — that's what makes static website hosting work. Every other guardrail (versioning, least-privilege deploy service account, branch-scoped WIF) is layered around that one necessary exception rather than pretending it isn't there.</p>
+      </div>
+    </div>
+
+    <div class="infra-section anim-5">
+      <h2>Source</h2>
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;">Infrastructure-as-code lives in the Multicloud Identity Governance repo. Site content lives in the GitHub Pages repo.</p>
+      <div class="source-links">
+        <a href="https://github.com/ReneeBuildsTech/multicloud-identity-governance" class="source-link" target="_blank" rel="noopener">Infrastructure (MIG) →</a>
+        <a href="https://github.com/ReneeBuildsTech/ReneeBuildsTech.github.io" class="source-link" target="_blank" rel="noopener">Site Content →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Renee Brathwaite · reneebuilds.com</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="https://www.linkedin.com/in/reneebuilds" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);text-decoration:none;" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ReneeBuildsTech" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);text-decoration:none;" target="_blank" rel="noopener">GitHub</a>
+      <a href="contact.html" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);text-decoration:none;">Contact</a>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

@@ -162,17 +162,21 @@
           <h2>Keycloak IAM Lab</h2>
           <p class="proj-equivalent">Enterprise equivalent: <span>Microsoft Entra ID · Okta · Any OIDC/SAML Identity Provider</span></p>
         </div>
-        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Live on GitHub</span>
+        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
       </div>
-      <p>Deploys a production-grade Keycloak 26.2.4 instance on RHEL 10 with PostgreSQL 16, TLS hardening, OIDC and SAML 2.0 client configuration, and a Python-automated Joiner-Mover-Leaver lifecycle. Generates real audit events that feed the platform's shared data lake and GRC1 certification workflow downstream.</p>
+      <p>Production-grade Keycloak 26.2.4 on RHEL 10 with PostgreSQL 16, TLS hardening, OIDC and SAML 2.0 client configuration, and Python-automated Joiner-Mover-Leaver lifecycle. Generates real audit events that feed the platform's shared data lake and GRC1 certification workflow downstream. Enhanced with Kubernetes Operator deployment, Prometheus/Grafana/Alertmanager observability stack (provisioned via Ansible), default-deny NetworkPolicy with negative testing, per-workload ServiceAccounts, and scoped Grafana DB role — each fix traced to a verified root cause including a silent RBAC denial that was invisible only because the deployment ran a single replica.</p>
       <div class="proj-tags">
         <span class="tag tag-cyan">Keycloak 26.2.4</span>
         <span class="tag tag-muted">PostgreSQL 16</span>
         <span class="tag tag-muted">Python 3.12</span>
         <span class="tag tag-muted">OIDC · SAML 2.0</span>
-        <span class="tag tag-muted">RHEL 10</span>
+        <span class="tag tag-muted">Kubernetes · k3s</span>
+        <span class="tag tag-muted">Prometheus · Grafana · Alertmanager</span>
+        <span class="tag tag-muted">Ansible</span>
+        <span class="tag tag-muted">Jenkins CI/CD</span>
         <span class="tag tag-muted">Podman</span>
         <span class="tag tag-muted">TLS RSA-4096</span>
+        <span class="tag tag-muted">RHEL 10</span>
       </div>
       <div class="proj-controls">
         <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 7, 8, 10</div></div>
@@ -183,11 +187,10 @@
         <div class="control-item"><div class="control-fw">Total Controls</div><div class="control-ids" style="color:var(--cyan);">51 mapped</div></div>
       </div>
       <div class="proj-actions">
-        <a href="https://github.com/ReneeBuildsTech/keycloak-iam-lab" class="btn btn-primary" target="_blank" rel="noopener">View Repository <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:3px;">Repo · On Request</span>
       </div>
     </div>
 
-    <!-- P2 -->
     <div class="proj-full pam live anim-4">
       <div class="proj-header">
         <div class="proj-header-left">
@@ -195,12 +198,15 @@
           <h2>PAM Simulation</h2>
           <p class="proj-equivalent">Enterprise equivalent: <span>CyberArk EPV · BeyondTrust Password Safe</span></p>
         </div>
-        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Live on GitHub</span>
+        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
       </div>
-      <p>Simulates a production-grade PAM environment using HashiCorp Vault with KV secrets engine, AppRole authentication, Ansible-automated credential rotation, TLS-secured API endpoints, SHA-256 tamper-evident audit logs, and a Flask audit dashboard. Replaces static root tokens and hardcoded credentials with scoped, time-bound machine identities.</p>
+      <p>Production-grade PAM environment using HashiCorp Vault with KV secrets engine, AppRole authentication, Ansible-automated credential rotation, TLS-secured API endpoints, SHA-256 tamper-evident audit logs, and a Flask audit dashboard. Enhanced with Vault Agent Injector on Kubernetes — including root-cause investigation of a silent cert-injection failure masked by a permissive webhook failure policy and swallowed by the rotation script's own error handling, fixed durably via cert-manager with a root → CA → issuer chain and corroborated against a known upstream HashiCorp issue. RBAC and NetworkPolicy hardening caught two real gaps via testing, not review.</p>
       <div class="proj-tags">
         <span class="tag tag-gold">HashiCorp Vault</span>
         <span class="tag tag-muted">AppRole Auth</span>
+        <span class="tag tag-muted">Vault Agent Injector</span>
+        <span class="tag tag-muted">cert-manager</span>
+        <span class="tag tag-muted">Kubernetes · k3s</span>
         <span class="tag tag-muted">Ansible</span>
         <span class="tag tag-muted">Python 3.12</span>
         <span class="tag tag-muted">TLS RSA-2048</span>
@@ -217,7 +223,7 @@
         <div class="control-item"><div class="control-fw">Total Controls</div><div class="control-ids" style="color:var(--gold);">44 mapped</div></div>
       </div>
       <div class="proj-actions">
-        <a href="https://github.com/ReneeBuildsTech/pam-sim" class="btn btn-gold" target="_blank" rel="noopener">View Repository <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:3px;">Repo · On Request</span>
       </div>
     </div>
 
@@ -256,115 +262,152 @@
         <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">Continuous monitoring</div></div>
       </div>
       <div class="proj-actions">
-        <a href="https://github.com/ReneeBuildsTech/okta-aws-siem" class="btn btn-primary" target="_blank" rel="noopener">Stage 1 Repo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-        <a href="https://github.com/ReneeBuildsTech/project-3-okta-siem-stage2" class="btn btn-ghost" target="_blank" rel="noopener">Stage 2 Repo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:3px;">Stage 1 · On Request</span>
+        <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:3px;">Stage 2 · On Request</span>
       </div>
     </div>
 
     <!-- P4 -->
-    <div class="proj-full iam planned anim-6">
+    <div class="proj-full iam live anim-6">
       <div class="proj-header">
         <div class="proj-header-left">
           <div class="proj-track-label"><span class="tag tag-cyan">P4 — Audit</span></div>
-          <h2>IAM Policy Auditor</h2>
-          <p class="proj-equivalent">Enterprise equivalent: <span>AWS IAM Access Analyzer · Wiz · Prisma Cloud</span></p>
+          <h2>IAM Policy Auditor AI</h2>
+          <p class="proj-equivalent">Enterprise equivalent: <span>Palo Alto Prisma Cloud CSPM · CrowdStrike Falcon CSPM · AWS IAM Access Analyzer</span></p>
         </div>
-        <span class="coming-soon-badge">In Progress</span>
+        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
       </div>
-      <p>Audits AWS IAM policies for least-privilege violations — wildcard actions, missing MFA conditions, stale credentials, privilege escalation paths. AI-generated risk narratives via Amazon Bedrock (Claude Haiku 3.5) with Guardrails. Async job engine decouples scan execution from the browser request path. CRITICAL findings publish to the P3 SNS topic.</p>
+      <p>Audits AWS IAM policies for least-privilege violations via a 13-rule weighted engine — wildcard actions, missing MFA conditions, stale credentials, privilege escalation paths. Bedrock AI risk narratives per finding with Guardrails PII blocking. Async Flask job engine decouples scan execution from the browser. CRITICAL findings publish to the shared P3 SNS topic and S3 data lake. The ITDR Wave extended P4 into a detection-and-response layer: Azure RBAC detection (6 rules, fixture-modeled after confirming no live Azure tenant was reachable — a real infrastructure constraint, documented), JIT time-bound access remediation using the Azure PIM eligible/active state-migration model, Prometheus/Grafana/Alertmanager observability on k3s via Ansible, and shared Alertmanager routing with MIG. A real FP/FN test pass caught two live production bugs before they shipped — a wildcard-prefix check that missed realistic bucket patterns, and a malformed-date parse that silently dropped a credential-staleness check.</p>
       <div class="proj-tags">
         <span class="tag tag-cyan">Amazon Bedrock</span>
-        <span class="tag tag-muted">AWS IAM</span>
+        <span class="tag tag-muted">AWS IAM · Credential Report</span>
         <span class="tag tag-muted">Bedrock Guardrails</span>
-        <span class="tag tag-muted">Athena</span>
-        <span class="tag tag-muted">Flask</span>
-        <span class="tag tag-muted">ThreadPoolExecutor</span>
+        <span class="tag tag-muted">Azure RBAC (fixture)</span>
+        <span class="tag tag-muted">Prometheus · Grafana · Alertmanager</span>
+        <span class="tag tag-muted">Kubernetes · k3s · Ansible</span>
+        <span class="tag tag-muted">Athena · Glue · S3</span>
+        <span class="tag tag-muted">Flask · ThreadPoolExecutor</span>
+        <span class="tag tag-muted">SQLite</span>
+        <span class="tag tag-muted">Python 3.12</span>
+        <span class="tag tag-muted">RHEL 10</span>
       </div>
       <div class="proj-controls">
-        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 7.2, 8.2</div></div>
-        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">AC-6, AC-2, IA-5</div></div>
-        <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">ID.AM-3, PR.AC-1</div></div>
-        <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">Access control evidence</div></div>
+        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 7.2, 8.2, 8.4, 10.5, 10.8</div></div>
+        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">AC-6, AC-6(1), IA-5, SI-10, SI-12</div></div>
+        <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">ID.AM-3, PR.AC-1, DE.AE-3</div></div>
+        <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">CC6.1, CC7.2 — access control evidence</div></div>
+      </div>
+      <div class="proj-actions">
+        <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:3px;">Repo · On Request</span>
       </div>
     </div>
 
     <!-- GRC1 -->
-    <div class="proj-full grc planned anim-7">
+    <div class="proj-full grc live anim-7">
       <div class="proj-header">
         <div class="proj-header-left">
           <div class="proj-track-label"><span class="tag tag-muted">GRC1 — Certification</span></div>
           <h2>Access Certification Platform</h2>
           <p class="proj-equivalent">Enterprise equivalent: <span>SailPoint IdentityNow · Saviynt · Any IGA Platform</span></p>
         </div>
-        <span class="coming-soon-badge">Planned</span>
+        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
       </div>
-      <p>Automates the quarterly access certification workflow required by SOX and PCI DSS auditors. Consumes real access records directly from P1's PostgreSQL audit tables. AI-assisted certification recommendations via Amazon Bedrock with Guardrails, running asynchronously at campaign launch rather than on page load.</p>
+      <p>AI-hardened MFA certification pipeline pulling live identity and MFA state from Keycloak 26, invoking Bedrock to render CERTIFY/REVOKE verdicts with mandatory PCI DSS Req 8.4.2 citations, writing tamper-evident audit evidence to SQLite, and firing SNS REVOKE alerts. Prompt injection protection and fail-secure REVOKE default on Bedrock error. Enhanced with full Kubernetes deployment, OIDC/Keycloak login gate, green Jenkins CI/CD, NetworkPolicy hardening, shared SNS/Alertmanager alerting path, and a duplicate-campaign race condition fixed using Kubernetes' own atomic name uniqueness guarantee.</p>
       <div class="proj-tags">
         <span class="tag tag-muted">Amazon Bedrock</span>
-        <span class="tag tag-muted">PostgreSQL</span>
+        <span class="tag tag-muted">Keycloak 26.2.4</span>
+        <span class="tag tag-muted">Kubernetes · k3s</span>
+        <span class="tag tag-muted">Jenkins CI/CD</span>
+        <span class="tag tag-muted">Prometheus · Alertmanager</span>
         <span class="tag tag-muted">Bedrock Guardrails</span>
         <span class="tag tag-muted">SQLite</span>
         <span class="tag tag-muted">ThreadPoolExecutor</span>
         <span class="tag tag-muted">Flask</span>
+        <span class="tag tag-muted">SNS</span>
+        <span class="tag tag-muted">Python 3.12</span>
+      </div>
+      <div class="proj-controls">
+        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 8.4.2, 10.5, 10.8</div></div>
+        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">AC-2, IA-2, IA-5, SI-10, SI-17</div></div>
+        <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">PR.AC</div></div>
+        <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">CC6.1 SoD</div></div>
+      </div>
+      <div class="proj-actions">
+        <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:3px;">Repo · On Request</span>
       </div>
     </div>
 
     <!-- GRC2 -->
-    <div class="proj-full grc planned" style="opacity:0;animation:fadeUp 0.8s ease 1.15s forwards;">
+    <div class="proj-full grc live" style="animation:fadeUp 0.8s ease 1.15s forwards;">
       <div class="proj-header">
         <div class="proj-header-left">
           <div class="proj-track-label"><span class="tag tag-muted">GRC2 — Monitoring</span></div>
           <h2>Compliance Monitor</h2>
-          <p class="proj-equivalent">Enterprise equivalent: <span>ServiceNow GRC · Archer · Any Continuous Compliance Platform</span></p>
+          <p class="proj-equivalent">Enterprise equivalent: <span>Qualys Policy Compliance · AWS Security Hub · ServiceNow GRC</span></p>
         </div>
-        <span class="coming-soon-badge">Planned</span>
+        <span class="proj-status status-live" style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;color:#4ADE80;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);white-space:nowrap;height:fit-content;">Complete</span>
       </div>
-      <p>Validates that controls are actually operating — not just documented. Ingests P2 rotation logs, P4 IAM audit findings, and cross-project Athena queries to produce a continuous compliance score across PCI DSS, NIST 800-53, SOX, and HIPAA. AI-generated risk narratives per finding with XML context isolation defending against prompt injection.</p>
+      <p>EventBridge → Lambda → Bedrock pipeline detecting AWS Config drift events in real time. XML-isolated prompt engineering blocks indirect injection from raw Config payloads. Concurrent Bedrock inference via ThreadPoolExecutor produces QSA-ready risk narratives with false-positive-free classification. CRITICAL findings publish to the shared SNS topic. Idempotent SQLite evidence store with INSERT OR REPLACE handles overlapping cron windows without duplicates. Flask reviewer dashboard with 30s auto-refresh and JSON API.</p>
       <div class="proj-tags">
         <span class="tag tag-muted">Amazon Bedrock</span>
-        <span class="tag tag-muted">Athena</span>
-        <span class="tag tag-muted">S3</span>
+        <span class="tag tag-muted">EventBridge · Lambda</span>
+        <span class="tag tag-muted">AWS Config</span>
         <span class="tag tag-muted">Bedrock Guardrails</span>
+        <span class="tag tag-muted">S3 · Athena · Glue</span>
         <span class="tag tag-muted">SQLite</span>
+        <span class="tag tag-muted">SNS</span>
         <span class="tag tag-muted">Flask</span>
+        <span class="tag tag-muted">Python 3.12</span>
+      </div>
+      <div class="proj-controls">
+        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 6.4.3, 10.4.1, 10.4.1.1</div></div>
+        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">CA-7, SI-4, SI-10, SI-12</div></div>
+        <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">DE.CM, ID.RA</div></div>
+        <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">Operational effectiveness</div></div>
+      </div>
+      <div class="proj-actions">
+        <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:3px;">Repo · On Request</span>
       </div>
     </div>
 
-    <!-- P7 -->
-    <div class="proj-full iam planned" style="opacity:0.7;animation:fadeUp 0.8s ease 1.25s forwards;">
+    <!-- MIG -->
+    <div class="proj-full iam live" style="animation:fadeUp 0.8s ease 1.25s forwards;">
       <div class="proj-header">
         <div class="proj-header-left">
-          <div class="proj-track-label"><span class="tag tag-cyan">P7 — IAM · Tri-Cloud</span></div>
-          <h2>Tri-Cloud Identity Governance Engine</h2>
-          <p class="proj-equivalent">Enterprise equivalent: <span>SailPoint · Saviynt · Microsoft Entra ID Governance · CrowdStrike Falcon Identity</span></p>
+          <div class="proj-track-label"><span class="tag tag-cyan">MIG — IAM · Multicloud</span></div>
+          <h2>Multicloud Identity Governance &amp; Entitlement Engine</h2>
+          <p class="proj-equivalent">Enterprise equivalent: <span>SailPoint · Saviynt · CrowdStrike Falcon Identity · Prisma Cloud CSPM</span></p>
         </div>
-        <span class="coming-soon-badge">In Progress · July 2026</span>
+        <span class="proj-status status-live">Complete</span>
       </div>
-      <p>Programmatic identity governance engine spanning Okta, AWS IAM, Microsoft Entra ID, and GCP — detecting orphaned accounts, inactive credentials, and service account key sprawl concurrently across all four identity planes, then remediating automatically. Entra ID is the canonical source of truth; any account active elsewhere but disabled or absent in Entra triggers a dual-plane disable (Entra PATCH) and deactivate (Okta Management API) in a single reconciliation run. JIT privilege escalation via PIM with real-time webhook telemetry, risk-based Conditional Access enforced after Tor simulation, and a federated AWS data lake joining five telemetry sources in one Athena query. Five Architecture Decision Records document every major design choice. Portfolio site itself migrated to GCP Cloud Storage with Terraform-managed CDN and a keyless GitHub Actions deploy pipeline via Workload Identity Federation.</p>
+      <p>Reconciliation and entitlement engine pulling live state from Okta, AWS IAM, and GCP Cloud Asset Inventory concurrently on a 6-hour cadence — detecting orphaned accounts, inactive credentials, GCP service account key sprawl, identity map drift, and ungoverned service accounts across all three planes, then auto-remediating under a circuit breaker. The ITDR Wave extended this into a full detection-and-response layer: Prometheus/Grafana/Alertmanager/Pushgateway observability on k3s (provisioned via Ansible), shared Alertmanager routing with P4, and a cross-project Athena correlation dashboard joining MIG findings against P4 IAM findings. NHI governance caught the reconciliation engine's own GCP service account as ungoverned in its first live run. A meta-monitoring heartbeat detects pipeline failures invisible to the pipeline itself. Dead-letter alerting ensures SNS failures fail closed rather than crashing mid-run. GCP static hosting for this site is a direct byproduct — Terraform-managed, deployed via WIF-federated GitHub Actions with zero stored credentials. 10 ADRs document every major design decision.</p>
       <div class="proj-tags">
-        <span class="tag tag-cyan">Microsoft Graph API</span>
-        <span class="tag tag-cyan">Entra ID P2 · PIM</span>
-        <span class="tag tag-muted">Okta Management API</span>
-        <span class="tag tag-muted">AWS IAM · Credential Report</span>
-        <span class="tag tag-muted">GCP Cloud Asset Inventory</span>
+        <span class="tag tag-cyan">Okta API</span>
+        <span class="tag tag-cyan">AWS IAM</span>
+        <span class="tag tag-cyan">GCP Cloud Asset Inventory</span>
+        <span class="tag tag-muted">Prometheus · Grafana · Alertmanager</span>
+        <span class="tag tag-muted">Pushgateway · k3s</span>
         <span class="tag tag-muted">Workload Identity Federation</span>
         <span class="tag tag-muted">Terraform</span>
+        <span class="tag tag-muted">Ansible</span>
         <span class="tag tag-muted">ThreadPoolExecutor</span>
-        <span class="tag tag-muted">Flask · SQLite</span>
-        <span class="tag tag-muted">S3 · Athena · Glue</span>
+        <span class="tag tag-muted">SQLite · S3 · Athena · Glue</span>
         <span class="tag tag-muted">SNS · Secrets Manager</span>
-        <span class="tag tag-muted">GitHub Actions</span>
-        <span class="tag tag-muted">Python 3.11+</span>
+        <span class="tag tag-muted">GitHub Actions CI/CD</span>
+        <span class="tag tag-muted">Python 3.12</span>
         <span class="tag tag-muted">RHEL 10</span>
-        <span class="tag tag-muted">asciinema</span>
+        <span class="tag tag-muted">systemd timer</span>
       </div>
       <div class="proj-controls">
-        <div class="control-item"><div class="control-fw">SC-300 Domains</div><div class="control-ids">Identity lifecycle, PIM, CA, Identity Protection</div></div>
-        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">AC-2, AC-2(3), AC-6, IA-2(1), IA-5, SA-10, CM-2</div></div>
-        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 8.3.4, 8.4.2, 10.4.1.1</div></div>
+        <div class="control-item"><div class="control-fw">NIST 800-53</div><div class="control-ids">AC-2, AC-2(3), AC-6, IA-5, SA-10, CM-2, AU-2</div></div>
+        <div class="control-item"><div class="control-fw">NIST CSF</div><div class="control-ids">PR.AC, DE.CM, ID.AM, RS.RP</div></div>
+        <div class="control-item"><div class="control-fw">PCI DSS v4.0</div><div class="control-ids">Req 7.2, 8.2.6, 8.3.4, 10.4.1.1</div></div>
         <div class="control-item"><div class="control-fw">GCP CIS</div><div class="control-ids">1.4 — SA key sprawl</div></div>
         <div class="control-item"><div class="control-fw">ISO 27001:2022</div><div class="control-ids">A.5.18, A.8.2, A.8.5</div></div>
-        <div class="control-item"><div class="control-fw">HIPAA</div><div class="control-ids">§164.308(a)(3), §164.308(a)(5)</div></div>
+        <div class="control-item"><div class="control-fw">SOX ITGC</div><div class="control-ids">CC6.1, CC6.2 — access governance</div></div>
+      </div>
+      <div class="proj-actions">
+        <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);border:1px solid var(--border);padding:0.35rem 0.9rem;border-radius:3px;">Repo · On Request</span>
       </div>
     </div>
 
@@ -385,7 +428,7 @@
               <th>P4 Audit</th>
               <th>GRC1</th>
               <th>GRC2</th>
-              <th>P7 Tri-Cloud</th>
+              <th>MIG</th>
             </tr>
           </thead>
           <tbody>
@@ -453,11 +496,11 @@
               <td>CIS Benchmarks</td>
               <td><span class="check">✓</span> RHEL 10</td>
               <td><span class="dash">—</span></td>
-              <td><span class="check-gold">◐</span> AWS planned</td>
-              <td><span class="check-gold">◐</span> AWS planned</td>
               <td><span class="dash">—</span></td>
               <td><span class="dash">—</span></td>
-              <td><span class="check-gold">◐</span> GCP 1.4</td>
+              <td><span class="dash">—</span></td>
+              <td><span class="dash">—</span></td>
+              <td><span class="check">✓</span> GCP 1.4</td>
             </tr>
           </tbody>
         </table>

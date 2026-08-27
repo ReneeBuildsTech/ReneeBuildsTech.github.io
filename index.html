@@ -102,58 +102,55 @@
       <p class="section-label">Platform Projects</p>
       <h2>Seven projects.<br><em>One connected system.</em></h2>
       <div class="projects-grid">
-        <a href="https://github.com/ReneeBuildsTech/keycloak-iam-lab" class="proj-card live" target="_blank" rel="noopener">
-          <div class="proj-meta"><span class="proj-id">P1 — IAM</span><span class="proj-status status-live">Live</span></div>
+        <div class="proj-card live">
+          <div class="proj-meta"><span class="proj-id">P1 — IAM</span><span class="proj-status status-live">Complete</span></div>
           <h3>Keycloak IAM Lab</h3>
-          <p class="proj-desc">Enterprise identity provider with OIDC/SAML, Python JML automation, PostgreSQL audit pipeline, and 51 mapped compliance controls.</p>
-          <div class="proj-tech">Keycloak 26.2.4 · PostgreSQL 16 · Python · RHEL 10</div>
-          <span class="proj-arrow">View on GitHub →</span>
-        </a>
-        <a href="https://github.com/ReneeBuildsTech/pam-sim" class="proj-card live" target="_blank" rel="noopener">
-          <div class="proj-meta"><span class="proj-id">P2 — PAM</span><span class="proj-status status-live">Live</span></div>
+          <p class="proj-desc">Enterprise IAM platform with OIDC/SAML, Python JML lifecycle automation, PostgreSQL audit schema, and 51 mapped compliance controls. Enhanced with Kubernetes Operator deployment, Prometheus/Grafana/Alertmanager observability stack, NetworkPolicy hardening, and per-workload ServiceAccounts — each fix traced to a verified root cause.</p>
+          <div class="proj-tech">Keycloak 26.2.4 · PostgreSQL 16 · Python · Kubernetes · Prometheus · RHEL 10</div>
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;display:inline-block;margin-top:0.75rem;">Repo · On Request</span>
+        </div>
+        <div class="proj-card live">
+          <div class="proj-meta"><span class="proj-id">P2 — PAM</span><span class="proj-status status-live">Complete</span></div>
           <h3>PAM Simulation</h3>
-          <p class="proj-desc">CyberArk-equivalent PAM environment with HashiCorp Vault, AppRole auth, Ansible rotation, TLS, and SHA-256 tamper evidence.</p>
-          <div class="proj-tech">HashiCorp Vault · Ansible · Python · TLS</div>
-          <span class="proj-arrow">View on GitHub →</span>
-        </a>
+          <p class="proj-desc">CyberArk-equivalent PAM environment with HashiCorp Vault, AppRole auth, Ansible rotation, TLS, and SHA-256 tamper evidence. Enhanced with Vault Agent Injector on Kubernetes — including root-cause investigation of a silent cert-rotation failure masked by a permissive webhook policy — plus RBAC and NetworkPolicy hardening.</p>
+          <div class="proj-tech">HashiCorp Vault · Ansible · Python · Kubernetes · cert-manager · TLS</div>
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;display:inline-block;margin-top:0.75rem;">Repo · On Request</span>
+        </div>
         <div class="proj-card live" style="cursor:default;">
           <div class="proj-meta"><span class="proj-id">P3 — SIEM</span><span class="proj-status status-live">Complete</span></div>
           <h3>Okta AWS SIEM Pipeline</h3>
-          <p class="proj-desc">Hybrid SIEM ingesting Okta logs via EC2 poller into Kinesis Firehose, S3, and Athena. Lambda + Bedrock AI threat analysis, EventBridge alerting, CloudTrail, QuickSight SOC dashboard, and GitHub Actions CI/CD.</p>
-          <div class="proj-tech">Okta API · Firehose · Lambda · Bedrock · EventBridge · Terraform · GitHub Actions</div>
-          <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
-            <a href="https://github.com/ReneeBuildsTech/okta-aws-siem" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);text-decoration:none;border:1px solid var(--cyan-border);padding:0.2rem 0.6rem;border-radius:3px;" target="_blank" rel="noopener">Stage 1 →</a>
-            <a href="https://github.com/ReneeBuildsTech/project-3-okta-siem-stage2" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);text-decoration:none;border:1px solid var(--cyan-border);padding:0.2rem 0.6rem;border-radius:3px;" target="_blank" rel="noopener">Stage 2 →</a>
-          </div>
+          <p class="proj-desc">Hybrid SIEM ingesting Okta logs via EC2 poller into Kinesis Firehose, S3, and Athena. Lambda + Bedrock AI threat analysis, EventBridge alerting, CloudTrail Insights anomaly detection, QuickSight SOC dashboard, and GitHub Actions GitOps CI/CD. Shared data lake consumed by P4, GRC P2, and MIG.</p>
+          <div class="proj-tech">Okta API · Firehose · Lambda · Bedrock · EventBridge · CloudTrail · Terraform · GitHub Actions</div>
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;display:inline-block;margin-top:0.75rem;">Repo · On Request</span>
         </div>
-        </div>
-        <a href="https://github.com/ReneeBuildsTech/iam-auditor-ai" class="proj-card live" target="_blank" rel="noopener">
+        <div class="proj-card live">
           <div class="proj-meta"><span class="proj-id">P4 — Audit</span><span class="proj-status status-live">Complete</span></div>
           <h3>IAM Policy Auditor AI</h3>
-          <p class="proj-desc">Audits AWS IAM policies for least-privilege violations. Bedrock AI risk narratives, async Flask job engine, cross-project Athena queries, CRITICAL SNS alerts, QuickSight dashboard.</p>
-          <div class="proj-tech">Bedrock · IAM · SQLite · Athena · QuickSight · Flask</div>
-          <span class="proj-arrow">View on GitHub →</span>
-        </a>
+          <p class="proj-desc">Audits AWS IAM policies for least-privilege violations via a 13-rule weighted engine. Bedrock AI risk narratives, async Flask job engine, cross-project Athena correlation, CRITICAL SNS alerts. ITDR Wave added Azure RBAC detection (6 rules), JIT access remediation, Prometheus/Grafana observability, and shared Alertmanager routing with MIG — catching two real production bugs via FP/FN testing before they shipped.</p>
+          <div class="proj-tech">Bedrock · IAM · Prometheus · Grafana · Kubernetes · Athena · Flask · Python</div>
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;display:inline-block;margin-top:0.75rem;">Repo · On Request</span>
+        </div>
         <div class="proj-card live" style="grid-column:1/-1;cursor:default;">
           <div class="proj-meta"><span class="proj-id">GRC1 + GRC2 — Compliance Platform</span><span class="proj-status status-live">Complete</span></div>
           <h3>GRC Platform</h3>
-          <p class="proj-desc"><strong>Access Certification (GRC1)</strong> — AI-hardened MFA certification pipeline pulling from Keycloak, evaluating compliance via Bedrock, writing immutable SQLite audit evidence, and firing SNS REVOKE alerts. Maps to PCI DSS Req 8.4.2. &nbsp;|&nbsp; <strong>Compliance Monitor (GRC2)</strong> — Five-layer EventBridge → Lambda → Bedrock pipeline generating XML-isolated risk narratives, idempotent SQLite evidence, and Flask reviewer UI. Maps to PCI DSS Req 6.4.3 + Req 10.4.1.1.</p>
-          <div class="proj-tech">Bedrock · Keycloak · Lambda · EventBridge · SQLite · SNS · Athena · Flask</div>
-          <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
-            <a href="https://github.com/ReneeBuildsTech/grc-access-ai" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);text-decoration:none;border:1px solid var(--cyan-border);padding:0.2rem 0.6rem;border-radius:3px;" target="_blank" rel="noopener">GRC1 Repo →</a>
-            <a href="https://github.com/ReneeBuildsTech/grc-compliance-monitor" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);text-decoration:none;border:1px solid var(--cyan-border);padding:0.2rem 0.6rem;border-radius:3px;" target="_blank" rel="noopener">GRC2 Repo →</a>
+          <p class="proj-desc"><strong>Access Certification (GRC1)</strong> — AI-hardened MFA certification pipeline pulling live identity state from Keycloak, evaluating compliance via Bedrock with prompt injection protection, writing immutable SQLite audit evidence, and firing SNS REVOKE alerts. Enhanced with full Kubernetes deployment, OIDC login gate, Jenkins CI/CD, and NetworkPolicy hardening. Maps to PCI DSS Req 8.4.2. &nbsp;|&nbsp; <strong>Compliance Monitor (GRC2)</strong> — EventBridge → Lambda → Bedrock pipeline generating XML-isolated risk narratives, idempotent SQLite evidence, and Flask reviewer UI with 30s auto-refresh. Maps to PCI DSS Req 6.4.3 + Req 10.4.1.1.</p>
+          <div class="proj-tech">Bedrock · Keycloak · Lambda · EventBridge · Kubernetes · Jenkins · SQLite · SNS · Athena · Flask</div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+            <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;">GRC1 · On Request</span>
+            <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;">GRC2 · On Request</span>
             <a href="projects.html" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;">Full Detail →</a>
           </div>
         </div>
-      </div>
-        <div class="proj-card planned" style="opacity:0.7;grid-column:1/-1;">
-          <div class="proj-meta"><span class="proj-id">P7 — IAM</span><span class="coming-soon-badge" style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:100px;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold-border);">In Progress</span></div>
-          <h3>Tri-Cloud Identity Governance Engine</h3>
-          <p class="proj-desc">Programmatic identity governance across Okta, AWS IAM, Microsoft Entra ID, and GCP — concurrent drift detection, automated dual-plane remediation, JIT privilege escalation, risk-based Conditional Access, and a federated AWS data lake. Five ADRs documenting every major design decision. Portfolio site hosted on GCP with WIF-powered keyless deploy pipeline.</p>
-          <div class="proj-tech">Entra ID · Graph API · PIM · Okta · AWS IAM · GCP Asset Inventory · WIF · Terraform · Python · RHEL 10</div>
-          <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--gold);margin-top:0.75rem;display:inline-block;">Target: July 2026</span>
+        <div class="proj-card live" style="grid-column:1/-1;cursor:default;">
+          <div class="proj-meta"><span class="proj-id">MIG — Multicloud Identity Governance</span><span class="proj-status status-live">Complete</span></div>
+          <h3>Multicloud Identity Governance &amp; Entitlement Engine</h3>
+          <p class="proj-desc">Reconciliation and entitlement engine pulling live state from Okta, AWS IAM, and GCP concurrently on a 6-hour cadence — detecting orphaned accounts, inactive credentials, and ungoverned service accounts across all three planes and auto-remediating under a circuit breaker. ITDR Wave added full Prometheus/Grafana/Alertmanager observability, cross-project Athena correlation with P4, and NHI governance that caught the engine's own service account as ungoverned in its first live run. GCP hosting for this site is a byproduct of this project — deployed via Terraform + WIF-federated GitHub Actions with zero stored credentials.</p>
+          <div class="proj-tech">Okta · AWS IAM · GCP · Prometheus · Grafana · Alertmanager · Terraform · WIF · Athena · Python · k3s</div>
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:3px;display:inline-block;margin-top:0.75rem;">Repo · On Request</span>
         </div>
-      <div style="margin-top:2rem;"><a href="projects.html" class="btn btn-ghost">View All Projects →</a></div>
+      </div>
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);letter-spacing:0.06em;margin-top:1.5rem;text-align:center;">All repositories available upon request — <a href="contact.html" style="color:var(--cyan);text-decoration:none;">contact me</a> or connect on <a href="https://www.linkedin.com/in/reneebuilds" style="color:var(--cyan);text-decoration:none;" target="_blank" rel="noopener">LinkedIn</a>.</p>
+      <div style="margin-top:1.5rem;"><a href="projects.html" class="btn btn-ghost">View All Projects →</a></div>
     </section>
     <section class="philosophy">
       <div class="philosophy-inner">
